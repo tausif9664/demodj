@@ -24,9 +24,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'nh$tgq@syif*h)5z70^y+90aya3q%k%iv&1a9b@0lxicug_a%t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
+
 LOGIN_URL='/login/'
 LOGIN_REDIRECT_URL = '/welcome/'
 # Application definition
@@ -92,27 +94,37 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
-            #  'ENGINE': 'sql_server.pyodbc',
-            #  'NAME': 'gidcrm_qadb',
-            #  'HOST': 'db1.global-id.colo',
-            # 'USER': 'pip-rhiremath',
-            # 'PASSWORD': 'Vmie391!',
-            #  'PORT': '',
-# 'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'automation',
-#         'USER': 'rajesh',
-#         'PASSWORD': 'rajesh',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
+#             #  'ENGINE': 'sql_server.pyodbc',
+#             #  'NAME': 'gidcrm_qadb',
+#             #  'HOST': 'db1.global-id.colo',
+#             # 'USER': 'pip-rhiremath',
+#             # 'PASSWORD': 'Vmie391!',
+#             #  'PORT': '',
+# # 'ENGINE': 'django.db.backends.mysql',
+# #         'NAME': 'automation',
+# #         'USER': 'rajesh',
+# #         'PASSWORD': 'rajesh',
+# #         'HOST': 'localhost',
+# #         'PORT': '3306',
 
      
         
             
+#     }
+# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': '3bd*-CfDCA2b541e*Fg4GEg2ega1de5A',
+        'HOST': 'viaduct.proxy.rlwy.net',
+        'PORT': '41289',
     }
 }
 
@@ -161,10 +173,10 @@ CACHES = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATICFILES_DIRS=[
-    os.path.join(BASE_DIR, 'users/static')
+    os.path.join(BASE_DIR, 'users/static','static')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -181,3 +193,5 @@ EMAIL_HOST_PASSWORD = 'qbzteuqfoefekntv'
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
