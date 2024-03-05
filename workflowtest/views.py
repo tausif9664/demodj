@@ -38,7 +38,7 @@ log_path='C:\\AutomationUITests\\Tests\\log_files\\'
 
 
 # Create your views here.
-#@login_required()
+@login_required()
 def workflowTest(request):
     ATR_WF_id = ATR_WF.objects.all()
     # log_id = logs.objects.all()
@@ -52,7 +52,7 @@ def workflowTest(request):
     # pk = pks.id  ####initiai Id to remove 404 not found error
     return render(request,"workflowtest/wftests.html", {'table': table, 'ATR_WF_id': ATR_WF_id } )
 
-#@login_required()
+@login_required()
 def workflowTestDetails(request, pk=None):
     ####
     # pk = pk

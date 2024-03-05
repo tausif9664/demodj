@@ -94,39 +94,39 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
-#             #  'ENGINE': 'sql_server.pyodbc',
-#             #  'NAME': 'gidcrm_qadb',
-#             #  'HOST': 'db1.global-id.colo',
-#             # 'USER': 'pip-rhiremath',
-#             # 'PASSWORD': 'Vmie391!',
-#             #  'PORT': '',
-# # 'ENGINE': 'django.db.backends.mysql',
-# #         'NAME': 'automation',
-# #         'USER': 'rajesh',
-# #         'PASSWORD': 'rajesh',
-# #         'HOST': 'localhost',
-# #         'PORT': '3306',
+            #  'ENGINE': 'sql_server.pyodbc',
+            #  'NAME': 'gidcrm_qadb',
+            #  'HOST': 'db1.global-id.colo',
+            # 'USER': 'pip-rhiremath',
+            # 'PASSWORD': 'Vmie391!',
+            #  'PORT': '',
+# 'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'automation',
+#         'USER': 'rajesh',
+#         'PASSWORD': 'rajesh',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
 
      
         
             
-#     }
-# }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': '3bd*-CfDCA2b541e*Fg4GEg2ega1de5A',
-        'HOST': 'viaduct.proxy.rlwy.net',
-        'PORT': '41289',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': '3bd*-CfDCA2b541e*Fg4GEg2ega1de5A',
+#         'HOST': 'viaduct.proxy.rlwy.net',
+#         'PORT': '41289',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -173,10 +173,10 @@ CACHES = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATICFILES_DIRS=[
-    os.path.join(BASE_DIR, 'users/static','static')
+    os.path.join(BASE_DIR, 'users/static')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+STATIC_ROOT = os.path.join(BASE_DIR,  'static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -193,5 +193,5 @@ EMAIL_HOST_PASSWORD = 'qbzteuqfoefekntv'
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')

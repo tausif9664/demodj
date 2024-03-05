@@ -45,7 +45,7 @@ log_path='C:\\AutomationUITests\\Tests\\log_files\\'
 #### Create your user registration here. ####
 #
 # #### loadTestDetails_id page view for loadTestDetails page ####
-#@login_required()
+@login_required()
 def fcidwebsitetestDetails_id(request, pk):
     ####
     pk = pk
@@ -77,7 +77,7 @@ def fcidwebsitetestDetails_id(request, pk):
 # global Assigned
 # global d
 #
-#@login_required()
+@login_required()
 def history_FT(request,pk):
     d=None
     try:
@@ -275,7 +275,7 @@ def history_FT(request,pk):
 #     c = {'pk': pk,'b':b}
 #     return HttpResponse(t.render(c,request),content_type="text/plain")
 #
-#@login_required()
+@login_required()
 def fcidwebsitetest(request):
     ATR_FT_id = ATR_FT.objects.all()
     # pks = ATR_FT.objects.all()[ :1].get()
@@ -453,7 +453,7 @@ def recup_wos_FT(request,pk):
 #
 # global a
 #
-# #@login_required()
+# @login_required()
 # def welcome(request ,id=None):
 #     return render(request, 'users/welcome.html')
 #
