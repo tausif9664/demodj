@@ -1,0 +1,68 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+        <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static "/users/login/css/style.css" %}">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <style type="text/css">
+body {
+    font-family: ProximaNova, sans-serif;
+    src: url("{% static "/users/dashboard/fonts/Proxima_Nova_Regular.woff2" %}") format("woff2"),
+    url("{% static "/users/dashboard/fonts/Proxima_Nova_Regular.woff" %}") format("woff");
+    font-style: normal;
+    font-weight: 400;
+}
+</style>
+</head>
+<body>
+<div class="container-fluid loginBG">
+    <div class="logo">
+     <img src="{% static "/users/login/img/foodchainLogo.png" %}" alt="Hi!" />
+    </div>
+    <div class="content-section row" style="width: 350px;margin: auto;">
+        <div class="panel panel-default">
+        <div style="padding:5px; background-color:#373737;color:#fff;">SING UP </div>
+            <div class="panel-body">
+            <form method="POST">
+                  {% csrf_token %}
+                <div>
+                    {{ form.as_p }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Sign Up</button>
+                </div>
+                <div style="margin-top: 16px;">
+                    <p class="text-center"><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
+                    <p class="text-center"> Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a></p>
+                 </div>
+               </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--     <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Join Today</legend>
+                {{ form.as_p }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign Up</button>
+                <small class="text-muted ml-4">
+                    <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                </small>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+            </small>
+        </div>
+    </div> -->
+</body>
+</html>

@@ -1,0 +1,144 @@
+{% extends "users/basic.html" %}
+
+{% block title %}HistoryLoad Test{% endblock %}
+{% block activeload %}active{% endblock %}
+
+{% block body %}
+{% block nav %} {% endblock %}
+{% load static %}
+{% load staticfiles %}
+{# users/templates/users/dashboard.html #}
+{% load render_table from django_tables2 %}
+{% load django_tables2 %}
+
+{% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
+{% bootstrap_css %}         {# Embed Bootstrap CSS #}
+{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+
+<div class="container-fluid">
+  <form method="POST" id="selection-form" value="submit" name="histform" action="">{% csrf_token %} {{ form.media }}{{form.errors}}
+    <div class="row p-3">
+        <div class="card col-sm-12">
+            <div class="card-block mr-1">
+                <div class="row">
+                    <div class="col-sm-3" style="background: #f8f8f8;">
+
+                        <p class="cus-label">ASSIGNED
+                            <span class="float-right" data-toggle="tooltip" data-placement="top" title="tooltip description"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-sm-3" style="background: #f3f3f3">
+
+                        <p class="cus-label">
+
+
+
+
+                            {{form.assigned}}
+
+
+
+
+
+                        </p>
+                    </div>
+                    <div class="col-sm-3" style="background: #f8f8f8;">
+                        <p class="cus-label">DATE ASSIGNED
+                            <span class="float-right" data-toggle="tooltip" data-placement="top" title="tooltip description"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-sm-3 pt-2" style="background: #f3f3f3">
+                            {{form.date_assign}}
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3" style="background: #f8f8f8;">
+                        <p class="cus-label">STATUS
+                            <span class="float-right" data-toggle="tooltip" data-placement="top" title="tooltip description"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-sm-3" style="background: #f3f3f3">
+                        <p class="cus-label">
+                            {{form.status}}
+                        </p>
+                    </div>
+                    <div class="col-sm-3" style="background: #f8f8f8;">
+
+                        <p class="cus-label">DAYS OPEN
+                            <span class="float-right" data-toggle="tooltip" data-placement="top" title="tooltip description"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-sm-3" style="background: #f3f3f3">
+                        <p class="cus-label">
+                            {{d}}
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row p-3 border-bottom ">
+        <div class="col-sm-12 p-0">
+            <button  type="submit" class="btn btn-success btn-sm float-right" value="submitbutton">Save</button>
+        </div>
+    </div>
+  </form>
+
+
+  <div class="row p-3 border-bottom">
+    {% csrf_token %}
+
+    <form class="contact-form col-lg-12 p-0" action="" method="post" id="usrform" value="history">{% csrf_token %}
+
+        <textarea class="cus-textarea form-control" name="history" form="usrform" placeholder="Enter comment here..."></textarea>
+        <div class="float-right mt-2">
+            <button type="reset" value="Reset" class="btn btn-outline-success btn-sm  mr-2" >Clear</button>
+            <button type="submit" value="Submit" class="btn btn-success btn-sm ">Save</button>
+
+    </form>
+  </div>
+
+
+  <div class="col-sm-12 p-0">
+
+
+
+{% for a in ATR_id %}
+                    {% if pk  == a.id %}
+                        {% for i in hist %}
+                             {% if i.ATR.id == a.id %}
+
+
+                                <p class="cus-label1" style="margin-bottom: 0;"> On {{i.history_date}}, {{ i.user_name }} wrote:</p>
+                    {% if i.status|length > 0 %}
+                        <p class="cus-label1" style="margin-bottom: 0;">Test assigned to {{i.assigned}} on date {{i.date_assign}} and current status is {{i.status}}
+<!--                            {% if i.status|stringformat:"s" == "Open" %}-->
+<!--                            {% if i.days|add:"0" > 0 %}-->
+<!--                            and consumed days are {{i.days}}</p>-->
+<!--{% endif %}-->
+<!--                            {% endif %}-->
+{% endif %}
+      {% if i.h_a|length > 0 %}
+      <p class="cus-label1">{{ i.h_a }}</p>
+      {% endif %}
+
+
+    <hr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+

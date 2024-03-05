@@ -1,0 +1,25 @@
+
+.form-title{
+	 background-color: #373737;
+	 color: white;
+	 height: 30px;
+	 padding: 5px;
+}
+.logo{
+	padding:10px;
+}
+.container{
+	width: 91%!important;
+    margin: auto;
+}
+.loginBG{
+    background-image: url('../img/foodChainBG.jpg');
+    background-size: 100%;
+    width: 100%;
+    height: 440px;
+    padding-top: 8px;
+
+}
+a{
+	color:green;
+}

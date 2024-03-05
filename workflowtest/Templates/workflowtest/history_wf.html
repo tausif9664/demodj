@@ -1,0 +1,212 @@
+{% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
+{% bootstrap_css %}         {# Embed Bootstrap CSS #}
+{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+{% load static %}
+{% load staticfiles %}
+{# users/templates/users/dashboard.html #}
+{% load render_table from django_tables2 %}
+{% load django_tables2 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Load Tests</title>
+    <meta http-equiv=”refresh” content=”5" />
+    <link rel="stylesheet" href="{% static '/users/dashboard/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style type="text/css">
+    <script src="http://www.w3schools.com/lib/w3data.js"></script>
+
+
+body {
+    font-family: ProximaNova, sans-serif;
+    src: url("{% static "/users/dashboard/fonts/Proxima_Nova_Regular.woff2" %}") format("woff2"),
+    url("{% static "/users/dashboard/fonts/Proxima_Nova_Regular.woff" %}") format("woff");
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+}
+.card{
+  border:none!important;
+  border-radius: 0px!important;
+
+}
+.cus-label1 {
+    font-size: 14px;
+    padding-top: 10px;
+    font-weight: 500;
+    color: #5C5C5C;
+}
+.form-control{
+    font-size: 0.8rem!important;
+    height: calc(1.5em + .75rem + 2px);
+}
+.cus-textarea{
+    width: 100%;
+    height: 50px;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+select.form-control:not([size]):not([multiple]) {
+    height: calc(1.8rem + 2px)!important;
+}
+hr {
+    margin-top: 0!important;
+    margin-bottom: 0!important;
+}
+</style>
+    
+    <script>
+    $(function(){
+      $("#includedContent").load("form.html");
+    });
+    </script>
+
+
+</head>
+<body>
+
+<div class="container-fluid">
+  <form method="POST" id="selection-form" value="submit" name="histform" action="">{% csrf_token %} {{ form.media }}{{form.errors}}
+    <div class="row p-3">
+        <div class="card col-sm-12">
+            <div class="card-block mr-1">
+                <div class="row">
+                    <div class="col-sm-3" style="background: #f8f8f8;">
+
+                        <p class="cus-label">ASSIGNED
+                            <span class="float-right" data-toggle="tooltip" data-placement="top" title="tooltip description"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-sm-3" style="background: #f3f3f3">
+
+                        <p class="cus-label">
+                            {{form.assigned}}
+                        </p>
+                    </div>
+                    <div class="col-sm-3" style="background: #f8f8f8;">
+                        <p class="cus-label">DATE ASSIGNED
+                            <span class="float-right" data-toggle="tooltip" data-placement="top" title="tooltip description"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-sm-3 pt-2" style="background: #f3f3f3">
+                            {{form.date_assign}}
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3" style="background: #f8f8f8;">
+                        <p class="cus-label">STATUS
+                            <span class="float-right" data-toggle="tooltip" data-placement="top" title="tooltip description"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-sm-3" style="background: #f3f3f3">
+                        <p class="cus-label">
+                            {{form.status}}
+                        </p>
+                    </div>
+                    <div class="col-sm-3" style="background: #f8f8f8;">
+
+                        <p class="cus-label">DAYS OPEN
+                            <span class="float-right" data-toggle="tooltip" data-placement="top" title="tooltip description"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-sm-3" style="background: #f3f3f3">
+                        <p class="cus-label">
+                            {{d}}
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row p-3 border-bottom ">
+        <div class="col-sm-12 p-0">
+            <button  type="submit" class="btn btn-success btn-sm float-right" value="submitbutton">Save</button>
+        </div>
+    </div>
+  </form>
+
+
+  <div class="row p-3 border-bottom">
+    {% csrf_token %}
+
+    <form class="contact-form col-lg-12 p-0" action="" method="post" id="usrform" value="history">{% csrf_token %}
+
+        <textarea class="cus-textarea form-control" name="history" form="usrform" placeholder="Enter comment here..."></textarea>
+        <div class="float-right mt-2">
+            <button type="reset" value="Reset" class="btn btn-outline-success btn-sm  mr-2" >Clear</button>
+            <button type="submit" value="Submit" class="btn btn-success btn-sm ">Save</button>
+        </div>
+
+    </form>
+  </div>
+
+
+  <div class="col-sm-12 p-0">
+
+
+
+{% for a in ATR_id %}
+                    {% if pk  == a.id %}
+                        {% for i in hist %}
+                             {% if i.ATR_wf.id == a.id %}
+
+
+                                <p class="cus-label1" style="margin-bottom: 0;"> On {{i.history_date}}, {{ i.user_name }} wrote:</p>
+                    {% if i.status|length > 0 %}
+                        <p class="cus-label1" style="margin-bottom: 0;">Test assigned to {{i.assigned}} on date {{i.date_assign}} and current status is {{i.status}}
+<!--                            {% if i.status|stringformat:"s" == "Open" %}-->
+<!--                            {% if i.days|add:"0" > 0 %}-->
+<!--                            and consumed days are {{i.days}}</p>-->
+<!--{% endif %}-->
+<!--                            {% endif %}-->
+{% endif %}
+      {% if i.h_a|length > 0 %}
+      <p class="cus-label1">{{ i.h_a }}</p>
+      {% endif %}
+
+
+    <hr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+var url = $( '#selection-form' ).attr( 'action' );
+$("selection-button").click(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            id: $('#id_Assigned').val()
+            },
+        success: function(result) {
+            alert('ok');
+        },
+        error: function(result) {
+            alert('error');
+        }
+    });
+});
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

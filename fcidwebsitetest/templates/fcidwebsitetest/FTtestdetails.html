@@ -1,0 +1,89 @@
+{% extends "users/basic.html" %}
+
+{% block title %}FcidWebSite Test Details{% endblock %}
+{% block activeft %}active{% endblock %}
+
+{% block body %}
+{# users/templates/users/dashboard.html #}
+{% load render_table from django_tables2 %}
+{% load bootstrap3 %}
+{% load bootstrap_pagination %}
+{% load static %}
+{% load staticfiles %}
+{# users/templates/users/dashboard.html #}
+{% load render_table from django_tables2 %}
+{% load django_tables2 %}
+ <div class="bg-gray mb-5 mr-4 ml-4"  style="background-color: #f3f3f3;font-size: 0.8rem;">
+	<div class="row mr-5 ml-5">
+
+		<div class="col-lg-4 mt-3">
+            <h5 class="mb-3 ml-1 page-title"><a href="{% url 'fcidwebsitetest' %}"> FCIDWEBSITE-TEST </a> </h5>
+            <h6 class="ml-1">{{ name.name }}</h6>
+		</div>
+		<div class="col-sm-8 mt-3">
+			<div class="row-sm-1 float-right">
+				<nav class="navbar navbar-expand-sm navbar-light ">
+
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<form class="form-inline my-2 my-lg-0" action="{% url 'search' %}">
+							<input class="form-control" type="search" name="q" value="{{ request.GET.q }}" placeholder="Search.." aria-label="Search" style="height: 25px;padding: 0 5px;">
+							<button class="btn btn-default my-2 my-sm-0" style="font-size: inherit;" type="submit"><i class="fa fa-search"></i> SEARCH</button>
+						</form>
+						<ul class="navbar-nav mr-auto">
+							<!--							<i class="fa fa-refresh "></i>-->
+							<form class="form-inline my-2 my-lg-0" action="/loadTestDetails/{{ pk }}/">
+							<button class="btn btn-default my-2 my-sm-0" style="font-size: inherit;" type="submit" name="s" value="{{ request.GET.s }}">CLEAR FILTERS </button>
+						</form>
+
+							<li class="nav-item active">
+								<a class="nav-link" href="/loadTestDetails/{{ pk }}/"> <i class="fa fa-sliders"></i> CLEAR SORTING</a>
+							</li>
+							<form class="form-inline my-2 my-lg-0" action="{% url 'Export' %}">
+							<button class="btn btn-default my-2 my-sm-0" style="font-size: inherit;"  type="submit" name="c" value="{{ request.GET.c }}"> EXPORT </button>
+						</form>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<div class="col-lg-12 mt-3">
+			<!--      { % atr_name.name %}-->
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="" style="background-color: #fff;">
+
+						{% if filter %}
+						<form action="" method="get" class="form form-inline">
+								{% bootstrap_form filter.form layout='inline' %}
+							    {% bootstrap_button 'filter' %}
+						</form>
+						{% endif %}
+						{% render_table table 'django_tables2/bootstrap.html' %}
+
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+		<ul class="pagination" style="background-color: #f3f3f3;font-size: 0.8rem;">
+ 					{% for t in tab.paginator.page_range %}
+	 				{% if tab.number == t %}
+	 				<li class="page-item active">
+						<a class="page-link" href="?page={{t}}">{{t}}</a>
+					</li>
+					{% else %}
+	 				<li class="page-item ">
+						<a class="page-link" href="?page={{t}}">{{t}}</a>
+					</li>
+	 				{% endif %}
+	 				{% endfor %}
+	   </ul>
+	</div>
+</div>
+{% endblock %}
