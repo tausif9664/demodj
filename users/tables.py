@@ -109,7 +109,7 @@ class TestEnvTable(tables.Table):
         model = Test_Env
         exclude = ('id',)
         template_name = 'django_tables2/bootstrap4.html'
-        attrs = {'class': 'table table-striped table-bordered table-hover table-sm whitebg' ,'border': 'solid black','id':'TestEnv'}
+        attrs = {'class': 'table table-striped table-bordered table-hover table-sm whitebg'}
 #-----------------------------------------------------------------------------------------------------------------
 class StageNextTable(tables.Table):
     Passed = tables.Column()

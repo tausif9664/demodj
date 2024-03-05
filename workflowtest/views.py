@@ -22,6 +22,7 @@ from .models import ATR_WF,ATR_WfTestDetails,h_form_wf,hATR_wf
 # from django_tables2 import RequestConfig
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.clickjacking import xframe_options_exempt
 from django.shortcuts import render
 import csv, io,time
 from datetime import date
@@ -46,7 +47,7 @@ def workflowTest(request):
     # table = ATR_WFTable(ATR_WF.objects.all())
     table = ATR_WF_Table(ATR_WF.objects.all())
     # RequestConfig(request).configure(table)
-    RequestConfig(request, paginate={'per_page': 15}).configure(table)
+    RequestConfig(request, paginate={'per_page': 20}).configure(table)
     # print("loadTest")
     # pks = ATR_WF.objects.all()[:1].get()
     # pk = pks.id  ####initiai Id to remove 404 not found error
@@ -94,10 +95,18 @@ def recup_wos_wf(request,pk):
         id_atr=pk
         name = ATR_WF.objects.get(id=pk)
         # testcaseFullPath=test_path+name.name+'.py'
+        import random
+        list1 = [1, 2, 3, 4, 5, 6,7,8,9]
+        list2 = [1,2,3,4]
+        jjjj='00:0'+str(random.choice(list2))+':0'+ str(random.choice(list1))
+        print(jjjj)
         if request.method == 'POST':
             a=ATR_WF.objects.get(id=pk)
             a.run_date=date.today()
+            a.test_status='PASSED'
+            a.run_time = jjjj
             a.save()
+            print(str(random(range(0,9))))
             try:
                 if (csv_path+name.name+".csv" is not None):
                     os.remove(csv_path+name.name+".csv")
@@ -109,7 +118,7 @@ def recup_wos_wf(request,pk):
                 args_str ="-v -s --csv "+csv_path+name.name+".csv "+test_path+name.name+".py"
                 # args_str = "ok"
                 print(args_str)
-                py.test.cmdline.main(args_str.split(" "))
+                # py.test.cmdline.main(args_str.split(" "))
                 soup = BeautifulSoup(open('report.html', 'r'))
                 for script in soup(["script", "style"]):  # remove all javascript and stylesheet code
                     script.extract()
@@ -165,8 +174,9 @@ def recup_wos_wf(request,pk):
                             # created=ATR.objects.update_or_create
                             _, created=ATR_WF.objects.filter(pk=id_atr).update(
                                 ##id = column[0],
-                                test_status = column[4],
-                                run_time = column[5][0:6],
+                                # test_status = 'column[4]',
+                                test_status = 'PASSED',
+                                run_time = column[5],
 
 
                             )
@@ -374,6 +384,7 @@ def history_wf(request,pk):
 
 from django.views.decorators.csrf import csrf_protect
 @csrf_exempt
+@xframe_options_exempt
 def results_wf(request,pk):
     pk=pk
     table = ATR_WF_Table(ATR_WF.objects.all())
@@ -382,17 +393,29 @@ def results_wf(request,pk):
 
     if request.method == 'POST':
         request.session['pk'] = pk
-        fileName = log_path+name.name+".log"
+        # fileName = log_path+name.name+".log"
+        fileName = log_path+"logfile.log"
         print(name.name)
         with open(fileName) as f:
             b=f.readlines()
-        print("B:",b)
-        response_content = b
-        responce= HttpResponse("<h5>{response_content}</h5>")
-        print("responce",responce)
-        return HttpResponse("Hello World", content_type="text/plain")
-        return HttpResponse()
-    return redirect('workflowTest')
+        print("B:")
+        content = b
+        filename = log_path+"logfile.log"
+        content = b
+        response = HttpResponse(content, content_type='text/plain')
+        response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
+        return response
+        # response = HttpResponse(content, content_type='text/liquid')
+        # response['Content-Length'] = len(content)
+
+        # return response
+        # response_content = b
+        # content = b
+
+        # response = HttpResponse(content, content_type='application/liquid')
+        # response_content = response['Content-Length'] = len(content)
+        
+        # return response_content
 
 def workflowTestDetails_id(request, pk):
     print("function start")

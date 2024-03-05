@@ -24,10 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'nh$tgq@syif*h)5z70^y+90aya3q%k%iv&1a9b@0lxicug_a%t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
 
 LOGIN_URL='/login/'
 LOGIN_REDIRECT_URL = '/welcome/'

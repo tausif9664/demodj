@@ -155,6 +155,8 @@ def welcome(request):
     RequestConfig(request, paginate={'per_page': 7}).configure(Release_Table)
 
     TestEnv_Table = TestEnvTable(Test_Env.objects.all())
+    for i in Test_Env.objects.all():
+        print("I:",i)
     RequestConfig(request).configure(TestEnv_Table)
 
     ProdEnv_Table = ProdEnvTable(Prod_Env.objects.all())
